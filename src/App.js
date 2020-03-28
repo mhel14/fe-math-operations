@@ -4,9 +4,11 @@ import { API_URL } from './constant';
 import './App.css';
 
 const App = () => {
+  // Update websocket url to use your local version
   const mySocket = new WebSocket('wss://sheltered-falls-30931.herokuapp.com/', ['json']);
   const [ input1, setInput1 ] = useState('');
   const [ input2, setInput2 ] = useState('');
+  const [ output, setOutput ] = useState(0);
 
   useEffect(() => {
     mySocket.onopen = () => {
@@ -16,10 +18,13 @@ const App = () => {
       console.log('react websocket data? ', {
         data: event.data,
       });
+      
+      setOutput(event.data);
     };
   }, []);
 
   const handleSubmit = async (symbol) => {
+    // Update api url to use your local version
     const result = await axios.post(`${API_URL}`, {
       payload: `${input1},${input2},${symbol}`
     });
@@ -58,13 +63,13 @@ const App = () => {
             onChange={ handleInput2Change }
           />
           <div className="output">
-            <p className="output-p">123</p>
+            <p className="output-p">{output}</p>
           </div>
         </div>
         <div className="row-2">
-          <button className="button" >+</button>
-          <button className="button" >-</button>
-          <button className="button" >x</button>
+          <button className="button" onClick={ () => handleSubmit('+') } >+</button>
+          <button className="button" onClick={ () => handleSubmit('-') } >-</button>
+          <button className="button" onClick={ () => handleSubmit('x') } >x</button>
           <button className="button" onClick={ () => handleSubmit('/') } >/</button>
         </div>
       </div>
