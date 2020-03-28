@@ -19,20 +19,12 @@ const App = () => {
     };
   }, []);
 
-  const handleSum = async () => {
-    const result = await axios.post(`${API_URL}/add`, {
-      payload: "1,2"
+  const handleSubmit = async (symbol) => {
+    const result = await axios.post(`${API_URL}`, {
+      payload: `${input1},${input2},${symbol}`
     });
 
-    console.log('res? ', result);
-  }
-
-  const handleDivision = async () => {
-    const result = await axios.post(`${API_URL}/divide`, {
-      payload: `${input1},${input2}`
-    });
-
-    console.log('division res? ', result);
+    console.log('submit response? ', result);
   }
 
   const handleInput1Change = (e) => {
@@ -70,10 +62,10 @@ const App = () => {
           </div>
         </div>
         <div className="row-2">
-          <button className="button" onClick={ handleSum } >+</button>
+          <button className="button" >+</button>
           <button className="button" >-</button>
           <button className="button" >x</button>
-          <button className="button" onClick={ handleDivision } >/</button>
+          <button className="button" onClick={ () => handleSubmit('/') } >/</button>
         </div>
       </div>
     </div>

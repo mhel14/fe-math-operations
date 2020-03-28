@@ -1,1 +1,1 @@
-export const API_URL = 'https://sheltered-falls-30931.herokuapp.com';
+export const API_URL = 'https://sheltered-falls-30931.herokuapp.com/solve';
